@@ -193,3 +193,5 @@ crashlytics.properties
 crashlytics-build.properties
 
 
+# USER DEFINED
+files/*
