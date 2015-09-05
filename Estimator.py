@@ -8,15 +8,23 @@ class Estimator(object):
         self.probability_values = np.arange(scale, dtype=float)/(scale-1)
         self.distribution = distribution
         self.ones = np.ones(self.distribution.shape, dtype=float)
+        self.epsilon = 1.0/(100*scale)
 
     def update(self, record):
         record = int(record)
         if record == 1:
             dot = self.probability_values*self.distribution
-            self.distribution = dot/dot.sum()
+            result = self.unzero(dot)
+            self.distribution = result/result.sum()
         else:
             dot = (self.ones - self.probability_values)*self.distribution
-            self.distribution = dot/dot.sum()
+            result = self.unzero(dot)
+            self.distribution = result/result.sum()
+
+    def unzero(self, probs):
+        small = (probs < self.epsilon).astype(float)
+        big = (probs >= self.epsilon).astype(float)
+        return big*probs + self.epsilon*small
 
     def save(self, statsfile):
         with open(statsfile, 'w') as outfile:
