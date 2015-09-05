@@ -9,7 +9,7 @@ import sys
 parser = argparse.ArgumentParser(description="Estimate the Handicapper's skill at his game.")
 parser.add_argument('--statsfile')
 parser.add_argument('records', type=argparse.FileType('r'))
-parser.add_argument('--outfile', nargs='?', type=argparse.FileType('w'), default=sys.stdout)
+parser.add_argument('--outfile')
 parser.add_argument('-s', type=int)
 
 args = parser.parse_args()
@@ -36,7 +36,7 @@ records = list(args.records)
 for record in records:
     estimator.update(record)
 
-if args.statsfile is not None:
-    estimator.save(statsfile)
+if args.outfile is not None:
+    estimator.save(args.outfile)
 
-print(str(estimator.expectation()), file=args.outfile)
+print(estimator.expectation())
