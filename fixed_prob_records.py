@@ -5,7 +5,7 @@ import numpy as np
 # Script set-up
 import argparse
 
-parser = argparse.ArgumentParser(description="Generate a file of game records.")
+parser = argparse.ArgumentParser(description="Generate a file of game records in which the Handicapper has a fixed probability of winning.")
 parser.add_argument('prob', type=float)
 parser.add_argument('num_records', type=int)
 parser.add_argument('outfile', type=argparse.FileType('w'))
