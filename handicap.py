@@ -39,4 +39,4 @@ for record in records:
 if args.statsfile is not None:
     estimator.save(statsfile)
 
-print(str(estimator.expectation()), f=args.outfile)
+print(str(estimator.expectation()), file=args.outfile)

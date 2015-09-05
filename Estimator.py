@@ -7,9 +7,10 @@ class Estimator(object):
         scale = len(distribution)
         self.probability_values = np.arange(scale, dtype=float)/(scale-1)
         self.distribution = distribution
-        self.ones = np.ones(self.distribution.shape)
+        self.ones = np.ones(self.distribution.shape, dtype=float)
 
     def update(self, record):
+        record = int(record)
         if record == 1:
             dot = self.probability_values*self.distribution
             self.distribution = dot/dot.sum()
