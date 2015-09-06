@@ -6,6 +6,11 @@ which are appropriate to his chances of winning.
 
 - - -
 
+This is just a fun little example of a Bayesian inference which runs pretty quickly without using any fancy distributional
+assumptions on the priors and posteriors in question.
+
+- - -
+
 ### The game and records
 
 The game that the Handicapper is playing only has two possible outcomes. If the Handicapper wins a session of the game,
@@ -51,5 +56,3 @@ file should contain exactly 1001 lines with line `j` being the prior probability
 
 - - -
 
-This is just a fun little example of a Bayesian inference which runs pretty quickly without using any fancy distributional
-assumptions on the priors and posteriors in question.
