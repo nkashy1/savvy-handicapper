@@ -2,7 +2,7 @@ from __future__ import print_function
 import numpy as np
 
 
-class Estimator(object):
+class SimpleEstimator(object):
     def __init__(self, distribution):
         scale = len(distribution)
         self.probability_values = np.arange(scale, dtype=float)/(scale-1)
@@ -26,11 +26,6 @@ class Estimator(object):
         big = (probs >= self.epsilon).astype(float)
         return big*probs + self.epsilon*small
 
-    def save(self, statsfile):
-        with open(statsfile, 'w') as outfile:
-            for p in list(self.distribution):
-                print(str(p), file=outfile)
-
     def sample(self):
         cumsum = self.distribution.cumsum()
         uniform_sample = np.random.uniform()
@@ -43,10 +38,10 @@ class Estimator(object):
 # TESTS
 import unittest
 
-class EstimatorTest0(unittest.TestCase):
+class SimpleEstimatorTest(unittest.TestCase):
     def setUp(self):
         distribution = np.array([0.25, 0.25, 0.25, 0.25])
-        self.estimator = Estimator(distribution)
+        self.estimator = SimpleEstimator(distribution)
         self.scale = len(distribution)
 
     def test_constructor(self):

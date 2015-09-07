@@ -4,10 +4,7 @@ The Handicapper has just learned a new game. He's not very good at it at the mom
 plays. He has to come up with a scheme to estimate his skill at the game so that he can offer people odds on his games
 which are appropriate to his chances of winning.
 
-- - -
-
-This is just a fun little example of a Bayesian inference which runs pretty quickly without using any fancy distributional
-assumptions on the priors and posteriors in question.
+This repository contains some scripts showing how one could apply Bayesian inference to this problem.
 
 - - -
 
@@ -36,7 +33,7 @@ $ python logistc_increasing_records initial_param epsilon n change_rate outfile
 
 - - -
 
-### Analysis
+### Simple Analysis
 
 The Handicapper figures that his skill at any given time can be quantified as the probability of him winning the next game that he plays.
 Assuming the existence of this probability, he chooses the following estimation scheme -- He only cares about estimating his
@@ -45,7 +42,7 @@ Bayes rule how likely it is, given his results so far, that his probability of s
 
 In order to run an analysis:
 ```
-$ python handicap.py records
+$ python simple_handicap.py records
 ```
 where `records` is the location of the file of records you would like to use in an analysis. When you call the analysis
 script in this manner, the Handicapper assumes a uniform prior distribution on the probabilities `j/1000`, for `0 <= j <= 1000`.
@@ -56,3 +53,19 @@ file should contain exactly 1001 lines with line `j` being the prior probability
 
 - - -
 
+### Analysis using beta distribution
+
+Rather than the analysis mentioned above, the Handicapper could instead choose to model his probability of winning using a beta distribution.
+This analysis actually runs much, much faster than the simple one because the update rules for the parameters of the beta
+distribution are very simply stated in terms of the number of wins and losses that the Handicapper records. In any given
+series of game records, the `alpha` parameter of the distribution should be updated by adding the number of wins and the `beta` parameter should be updated by adding the number of losses.
+
+To run this analysis:
+```
+$ python beta_handicap.py records
+```
+where `records` is the location of the file of records you would like ot use in the analysis. This performs an analysis
+where the initial prior distribution is a beta distribution with parameters `alpha = 1, beta = 1`. Custom values for `alpha` and
+`beta` in the initial prior can be specified from the command line using the `-a` and `-b` flags respectively.
+
+- - -

@@ -6,10 +6,9 @@ import numpy as np
 import argparse
 import sys
 
-parser = argparse.ArgumentParser(description="Estimate the Handicapper's skill at his game.")
+parser = argparse.ArgumentParser(description="Estimate the Handicapper's skill at his game to within 0.1%.")
 parser.add_argument('--statsfile')
 parser.add_argument('records', type=argparse.FileType('r'))
-parser.add_argument('--outfile')
 parser.add_argument('-s', type=int)
 
 args = parser.parse_args()
@@ -28,15 +27,12 @@ else:
 
 
 # Heavy lifting
-from Estimator import Estimator
+from SimpleEstimator import SimpleEstimator
 
-estimator = Estimator(distribution)
+estimator = SimpleEstimator(distribution)
 records = list(args.records)
 
 for record in records:
     estimator.update(record)
-
-if args.outfile is not None:
-    estimator.save(args.outfile)
 
 print(estimator.expectation())
